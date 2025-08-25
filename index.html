@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBusiness - Negócios Sustentáveis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-leaf"></i>
+                    <span>EcoBusiness</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#inicio" class="nav-link">Início</a></li>
+                    <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li class="nav-item"><a href="#empresas" class="nav-link">Empresas</a></li>
+                    <li class="nav-item"><a href="#calculadora" class="nav-link">Calculadora</a></li>
+                    <li class="nav-item"><a href="#mapa" class="nav-link">Mapa</a></li>
+                    <li class="nav-item"><a href="#dicas" class="nav-link">Dicas</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Negócios Sustentáveis: O Futuro é Agora</h1>
+                <p>Descubra empresas brasileiras comprometidas com a sustentabilidade e aprenda como investir em um futuro melhor.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('empresas')">Ver Empresas</button>
+                    <button class="btn-secondary" onclick="scrollToSection('calculadora')">Simulador</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0SSFXMR_-iaLBjRBghLcvpUF3Wo8YM53ToRF68AXdl1KHjK2OeeOYXtw&s=10" alt="Negócios Sustentáveis">
+            </div>
+        </section>
+
+        <section id="relogio" class="clock-section">
+            <div class="container">
+                <h2>Hora Atual em Brasília</h2>
+                <div class="clock" id="brasilia-clock">Carregando...</div>
+            </div>
+        </section>
+
+        <section id="sobre" class="about">
+            <div class="container">
+                <h2>O que são Negócios Sustentáveis?</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Negócios sustentáveis são empreendimentos que buscam equilibrar aspectos econômicos, sociais e ambientais em suas operações. Eles adotam práticas que minimizam impactos negativos no meio ambiente, promovem a justiça social e ainda assim mantêm a rentabilidade.</p>
+                        <p>No Brasil, diversas empresas têm se destacado nesse segmento, obtendo certificações que comprovam seu compromisso com a sustentabilidade.</p>
+                        <div class="stats">
+                            <div class="stat">
+                                <h3>+72%</h3>
+                                <p>aumento em empresas sustentáveis no Brasil na última década</p>
+                            </div>
+                            <div class="stat">
+                                <h3>R$ 50 bi</h3>
+                                <p>investidos em negócios verdes anualmente</p>
+                            </div>
+                            <div class="stat">
+                                <h3>+300</h3>
+                                <p>empresas com certificação B Corp no país</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sustentabilidade">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="empresas" class="companies">
+            <div class="container">
+                <h2>Empresas Brasileiras Sustentáveis</h2>
+                <p class="section-subtitle">Conheça algumas empresas certificadas no Brasil</p>
+                
+                <div class="company-filters">
+                    <button class="filter-btn active" data-filter="all">Todas</button>
+                    <button class="filter-btn" data-filter="bcorp">B Corp</button>
+                    <button class="filter-btn" data-filter="energia">Energia</button>
+                    <button class="filter-btn" data-filter="alimentos">Alimentos</button>
+                    <button class="filter-btn" data-filter="moda">Moda</button>
+                </div>
+                
+                <div class="companies-grid">
+                    <!-- Empresas serão adicionadas via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="calculadora" class="calculator">
+            <div class="container">
+                <h2>Simulador de Investimentos Sustentáveis</h2>
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="investment">Valor do Investimento (R$):</label>
+                            <input type="range" id="investment" min="1000" max="100000" step="1000" value="10000">
+                            <span id="investment-value">R$ 10.000,00</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="period">Período (anos):</label>
+                            <input type="range" id="period" min="1" max="20" value="5">
+                            <span id="period-value">5 anos</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="return">Taxa de Retorno Anual (%):</label>
+                            <input type="range" id="return" min="1" max="30" value="8">
+                            <span id="return-value">8%</span>
+                        </div>
+                        <button id="calculate-btn" class="btn-primary">Calcular</button>
+                    </div>
+                    <div class="calculator-result">
+                        <h3>Resultado do Investimento</h3>
+                        <div class="result-box">
+                            <div class="result-item">
+                                <span>Valor Investido:</span>
+                                <span id="invested-amount">R$ 10.000,00</span>
+                            </div>
+                            <div class="result-item">
+                                <span>Valor Final:</span>
+                                <span id="final-amount">R$ 0,00</span>
+                            </div>
+                            <div class="result-item">
+                                <span>Retorno:</span>
+                                <span id="return-amount">R$ 0,00</span>
+                            </div>
+                            <div class="result-item">
+                                <span>Impacto Ambiental:</span>
+                                <span id="environmental-impact">0 ton CO₂ evitadas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mapa" class="map">
+            <div class="container">
+                <h2>Encontre Negócios Sustentáveis Próximos</h2>
+                <div class="map-search">
+                    <input type="text" id="map-search-input" placeholder="Digite um endereço ou localização">
+                    <button id="map-search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="map-container"></div>
+            </div>
+        </section>
+
+        <section id="dicas" class="tips">
+            <div class="container">
+                <h2>Dicas para um Negócio mais Sustentável</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Eficiência Energética</h3>
+                        <p>Invista em energia renovável e equipamentos de baixo consumo. A iluminação LED pode reduzir em até 80% o consumo de energia.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3>Gestão de Resíduos</h3>
+                        <p>Implemente programas de reciclagem e reutilização de materiais. Aproveite os resíduos orgânicos para compostagem.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h3>Uso Racional da Água</h3>
+                        <p>Capture água da chuva, instale redutores de vazão e repense processos que utilizam grandes quantidades de água.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Responsabilidade Social</h3>
+                        <p>Valorize a diversidade, promova a equidade e invista no desenvolvimento da comunidade local.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Logística Sustentável</h3>
+                        <p>Otimize rotas de entrega, priorize veículos elétricos ou de baixa emissão e reduza embalagens.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Certificações</h3>
+                        <p>Busque certificações como B Corp, ISO 14001 ou selos verdes que comprovem seu compromisso com a sustentabilidade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="science">
+            <div class="container">
+                <h2>Ciência por Trás da Sustentabilidade</h2>
+                <div class="science-content">
+                    <div class="science-text">
+                        <p>A sustentabilidade empresarial é respaldada por diversas áreas científicas, incluindo a ecologia industrial, que estuda os fluxos de materiais e energia através de sistemas industriais.</p>
+                        <p>Pesquisas mostram que empresas com práticas sustentáveis têm:</p>
+                        <ul>
+                            <li>Melhor desempenho financeiro a longo prazo</li>
+                            <li>Maior resiliência em crises</li>
+                            <li>Atraem e retêm talentos com mais facilidade</li>
+                            <li>Menor risco regulatório</li>
+                        </ul>
+                        <p>Além disso, a economia circular - conceito que substitui o modelo "extrair-produzir-descartar" - demonstra como podemos dissociar o crescimento econômico do consumo de recursos finitos.</p>
+                    </div>
+                    <div class="science-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9xUMlrf094sQbgq5AtsX9L4snzt5XrMmiG_DHC1mvGDpAH2D_Fp1hlQ8E&s=10" alt="Ciência da Sustentabilidade">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EcoBusiness</h3>
+                    <p>Promovendo negócios sustentáveis para um futuro melhor.</p>
+                    <div class="social-icons">
+                        <a href="https://m.facebook.com/PortalSustentabilidade/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/ufrj"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/portal.sustentabilidade/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/news/story/carreiras-para-quem-se-interessa-por-sustentabilidade-5854257"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="https://www.raizen.com.br/blog/sustentabilidade-empresa#:~:text=Sustentabilidade%20vem%20da%20palavra%20%E2%80%9Csustent%C3%A1vel,muito%20tempo%20para%20se%20renovar.">Portal da Sustentabilidade</a></li>
+                        <li><a href="https://akatu.org.br/">Instituto Akatu</a></li>
+                        <li><a href="https://sistemabbrasil.org/">Brasil B Corp</a></li>
+                        <li><a href="https://www.gov.br/mma/pt-br">Ministério do Meio Ambiente</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber novidades sobre sustentabilidade.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit">Inscrever</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EcoBusiness - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
