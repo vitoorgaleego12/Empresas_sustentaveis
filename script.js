@@ -198,6 +198,7 @@ function setupCalculator() {
 }
 
 // Calcular resultado do investimento
+// Calcular resultado do investimento (versão melhorada)
 function calculateInvestment() {
     const investment = parseFloat(document.getElementById('investment').value);
     const period = parseInt(document.getElementById('period').value);
@@ -207,14 +208,86 @@ function calculateInvestment() {
     const finalAmount = investment * Math.pow(1 + returnRate, period);
     const returnAmount = finalAmount - investment;
     
-    // Estimativa de impacto ambiental (exemplo: toneladas de CO2 evitadas)
-    const environmentalImpact = (investment / 1000) * period * 0.5;
+    // Cálculo de impacto ambiental melhorado (baseado em setores)
+    const environmentalImpact = calculateEnvironmentalImpact(investment, period);
     
     // Atualizar resultados
     document.getElementById('invested-amount').textContent = formatCurrency(investment);
     document.getElementById('final-amount').textContent = formatCurrency(finalAmount);
     document.getElementById('return-amount').textContent = formatCurrency(returnAmount);
     document.getElementById('environmental-impact').textContent = `${environmentalImpact.toFixed(2)} ton CO₂ evitadas`;
+    
+    // Mostrar explicação do cálculo
+    showCalculationExplanation(investment, period, returnRate, environmentalImpact);
+}
+
+// Calcular impacto ambiental com base em setores (versão melhorada)
+function calculateEnvironmentalImpact(investment, period) {
+    // Obter setor selecionado (se existir)
+    const sectorSelect = document.getElementById('sector-select');
+    const selectedSector = sectorSelect ? sectorSelect.value : 'general';
+    
+    // Fatores de impacto por setor (kg CO₂ evitados por R$ 1000 investidos/ano)
+    // Valores baseados em pesquisas médias de impacto ambiental
+    const impactFactors = {
+        'energy': 120,      // Energia renovável: ~120 kg CO₂/R$1000/ano
+        'alimentos': 80,    // Alimentos sustentáveis: ~80 kg CO₂/R$1000/ano
+        'moda': 60,         // Moda sustentável: ~60 kg CO₂/R$1000/ano
+        'bcorp': 70,        // Empresas B Corp: ~70 kg CO₂/R$1000/ano
+        'general': 50       // Setor geral: ~50 kg CO₂/R$1000/ano (padrão)
+    };
+    
+    const factor = impactFactors[selectedSector] || impactFactors.general;
+    
+    // Cálculo: (investimento/1000) * fator_setorial * período / 1000 (para converter kg para ton)
+    return (investment / 1000) * factor * period / 1000;
+}
+
+// Mostrar explicação do cálculo
+function showCalculationExplanation(investment, period, returnRate, environmentalImpact) {
+    const explanationDiv = document.getElementById('calculation-explanation');
+    
+    // Obter setor selecionado
+    const sectorSelect = document.getElementById('sector-select');
+    const selectedSector = sectorSelect ? sectorSelect.value : 'general';
+    
+    // Nomes dos setores para exibição
+    const sectorNames = {
+        'energy': 'Energia Renovável',
+        'alimentos': 'Alimentos Sustentáveis',
+        'moda': 'Moda Sustentável',
+        'bcorp': 'Empresas B Corp',
+        'general': 'Setor Geral'
+    };
+    
+    explanationDiv.innerHTML = `
+        <div class="explanation-content">
+            <h3>Como este cálculo é feito?</h3>
+            <p><strong>Retorno Financeiro:</strong> Utilizamos a fórmula de juros compostos:</p>
+            <p class="formula">Valor Final = Valor Inicial × (1 + Taxa de Retorno)<sup>Período</sup></p>
+            <p>No seu caso: R$ ${investment.toFixed(2)} × (1 + ${returnRate.toFixed(2)})<sup>${period}</sup> = R$ ${(investment * Math.pow(1 + returnRate, period)).toFixed(2)}</p>
+            
+            <p><strong>Impacto Ambiental:</strong> Calculamos com base no setor <em>${sectorNames[selectedSector]}</em>:</p>
+            <p class="formula">CO₂ Evitado = (Investimento / 1000) × Fator Setorial × Período / 1000</p>
+            <p>No seu caso: (${investment.toFixed(2)} / 1000) × ${getSectorFactor(selectedSector)} × ${period} / 1000 = ${environmentalImpact.toFixed(2)} toneladas de CO₂</p>
+            
+            <p class="note">Nota: Os fatores setoriais são baseados em médias de pesquisas sobre o impacto de investimentos sustentáveis. Valores reais podem variar conforme o projeto específico.</p>
+        </div>
+    `;
+    
+    explanationDiv.style.display = 'block';
+}
+
+// Função auxiliar para obter fator setorial
+function getSectorFactor(sector) {
+    const factors = {
+        'energy': 120,
+        'alimentos': 80,
+        'moda': 60,
+        'bcorp': 70,
+        'general': 50
+    };
+    return factors[sector] || factors.general;
 }
 
 // Formatador de moeda
