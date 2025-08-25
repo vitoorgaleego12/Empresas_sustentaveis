@@ -104,52 +104,63 @@
             </div>
         </section>
 
-        <section id="calculadora" class="calculator">
-            <div class="container">
-                <h2>Simulador de Investimentos Sustentáveis</h2>
-                <div class="calculator-container">
-                    <div class="calculator-form">
-                        <div class="form-group">
-                            <label for="investment">Valor do Investimento (R$):</label>
-                            <input type="range" id="investment" min="1000" max="100000" step="1000" value="10000">
-                            <span id="investment-value">R$ 10.000,00</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="period">Período (anos):</label>
-                            <input type="range" id="period" min="1" max="20" value="5">
-                            <span id="period-value">5 anos</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="return">Taxa de Retorno Anual (%):</label>
-                            <input type="range" id="return" min="1" max="30" value="8">
-                            <span id="return-value">8%</span>
-                        </div>
-                        <button id="calculate-btn" class="btn-primary">Calcular</button>
+<section id="calculadora" class="calculator">
+    <div class="container">
+        <h2>Simulador de Investimentos Sustentáveis</h2>
+        <div class="calculator-container">
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="investment">Valor do Investimento (R$):</label>
+                    <input type="range" id="investment" min="1000" max="100000" step="1000" value="10000">
+                    <span id="investment-value">R$ 10.000,00</span>
+                </div>
+                <div class="form-group">
+                    <label for="period">Período (anos):</label>
+                    <input type="range" id="period" min="1" max="20" value="5">
+                    <span id="period-value">5 anos</span>
+                </div>
+                <div class="form-group">
+                    <label for="return">Taxa de Retorno Anual (%):</label>
+                    <input type="range" id="return" min="1" max="30" value="8">
+                    <span id="return-value">8%</span>
+                </div>
+                <div class="form-group">
+                    <label for="sector-select">Setor de Atuação:</label>
+                    <select id="sector-select">
+                        <option value="general">Setor Geral</option>
+                        <option value="energy">Energia Renovável</option>
+                        <option value="alimentos">Alimentos Sustentáveis</option>
+                        <option value="moda">Moda Sustentável</option>
+                        <option value="bcorp">Empresas B Corp</option>
+                    </select>
+                </div>
+                <button id="calculate-btn" class="btn-primary">Calcular</button>
+            </div>
+            <div class="calculator-result">
+                <h3>Resultado do Investimento</h3>
+                <div class="result-box">
+                    <div class="result-item">
+                        <span>Valor Investido:</span>
+                        <span id="invested-amount">R$ 10.000,00</span>
                     </div>
-                    <div class="calculator-result">
-                        <h3>Resultado do Investimento</h3>
-                        <div class="result-box">
-                            <div class="result-item">
-                                <span>Valor Investido:</span>
-                                <span id="invested-amount">R$ 10.000,00</span>
-                            </div>
-                            <div class="result-item">
-                                <span>Valor Final:</span>
-                                <span id="final-amount">R$ 0,00</span>
-                            </div>
-                            <div class="result-item">
-                                <span>Retorno:</span>
-                                <span id="return-amount">R$ 0,00</span>
-                            </div>
-                            <div class="result-item">
-                                <span>Impacto Ambiental:</span>
-                                <span id="environmental-impact">0 ton CO₂ evitadas</span>
-                            </div>
-                        </div>
+                    <div class="result-item">
+                        <span>Valor Final:</span>
+                        <span id="final-amount">R$ 0,00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Retorno:</span>
+                        <span id="return-amount">R$ 0,00</span>
+                    </div>
+                    <div class="result-item highlight">
+                        <span>Impacto Ambiental:</span>
+                        <span id="environmental-impact">0 ton CO₂ evitadas</span>
                     </div>
                 </div>
+                <div id="calculation-explanation" class="calculation-explanation"></div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
         <section id="mapa" class="map">
             <div class="container">
